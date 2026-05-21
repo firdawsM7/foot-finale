@@ -1,0 +1,88 @@
+club-foot-app
+├── backend
+│   ├── pom.xml
+│   ├── src
+│   │   └── main
+│   │       ├── java
+│   │       └── resources
+│   └── target
+│       ├── classes
+│       │   ├── application.properties
+│       │   └── com
+│       ├── generated-sources
+│       │   └── annotations
+│       ├── generated-test-sources
+│       │   └── test-annotations
+│       ├── maven-status
+│       │   └── maven-compiler-plugin
+│       └── test-classes
+├── mobile
+│   ├── analysis_options.yaml
+│   ├── club_mobile.iml
+│   ├── pubspec.yaml
+│   ├── README.md
+│   ├── android
+│   │   ├── build.gradle.kts
+│   │   ├── club_mobile_android.iml
+│   │   ├── gradle.properties
+│   │   ├── gradlew
+│   │   ├── gradlew.bat
+│   │   ├── local.properties
+│   │   └── settings.gradle.kts
+│   ├── build
+│   │   └── 2c57ae49690e7347e6f2c4f2cf27a88a
+│   │       ├── _composite.stamp
+│   │       ├── dart_build_result.json
+│   │       ├── dart_build.d
+│   │       ├── dart_build.stamp
+│   │       ├── gen_dart_plugin_registrant.stamp
+│   │       ├── gen_localizations.stamp
+│   │       └── outputs.json
+│   ├── ios
+│   │   ├── Flutter
+│   │   │   ├── AppFrameworkInfo.plist
+│   │   │   ├── Debug.xcconfig
+│   │   │   ├── flutter_export_environment.sh
+│   │   │   ├── Generated.xcconfig
+│   │   │   └── Release.xcconfig
+│   │   └── Runner
+│   │       ├── AppDelegate.swift
+│   │       ├── GeneratedPluginRegistrant.h
+│   │       ├── GeneratedPluginRegistrant.m
+│   │       ├── Info.plist
+│   │       ├── Runner-Bridging-Header.h
+│   │       └── Assets.xcassets
+│   ├── lib
+│   │   └── main.dart
+│   ├── linux
+│   │   ├── CMakeLists.txt
+│   │   ├── flutter
+│   │   │   ├── CMakeLists.txt
+│   │   │   ├── generated_plugin_registrant.cc
+│   │   │   ├── generated_plugin_registrant.h
+│   │   │   └── generated_plugins.cmake
+│   │   └── runner
+│   │       ├── CMakeLists.txt
+│   │       ├── main.cc
+│   │       ├── my_application.cc
+│   │       └── my_application.h
+│   ├── macos
+│   │   ├── Flutter
+│   │   │   ├── Flutter-Debug.xcconfig
+│   │   │   ├── Flutter-Release.xcconfig
+│   │   │   ├── GeneratedPluginRegistrant.swift
+│   │   │   └── ephemeral
+│   │   └── Runner
+│   │       ├── AppDelegate.swift
+│   │       ├── DebugProfile.entitlements
+│   │       └── ...
+│   ├── test
+│   │   └── widget_test.dart
+│   ├── web
+│   │   ├── index.html
+│   │   ├── manifest.json
+│   │   └── icons
+│   └── windows
+│       ├── CMakeLists.txt
+│       ├── flutter
+│       └── runner

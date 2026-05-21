@@ -1,0 +1,11 @@
+-- Les mots de passe en clair sont migrés automatiquement au démarrage du backend
+-- (voir PasswordHashMigrationRunner + app.security.migrate-plain-passwords=true).
+--
+-- Vérification manuelle après redémarrage :
+-- SELECT email,
+--   CASE
+--     WHEN password IS NULL THEN 'AUCUN'
+--     WHEN password LIKE '$2a$%' OR password LIKE '$2b$%' OR password LIKE '$2y$%' THEN 'BCRYPT'
+--     ELSE 'NON_HASHÉ'
+--   END AS statut
+-- FROM users;
