@@ -50,6 +50,7 @@ class _EquipesScreenState extends State<EquipesScreen> {
 
   Widget _buildEquipeTile(Equipe e) {
     final role = context.read<AuthProvider>().user?.role;
+    final isAdmin = role == 'ADMIN';
     final showTeamChat = role != 'ENCADRANT';
 
     return Container(
@@ -68,17 +69,33 @@ class _EquipesScreenState extends State<EquipesScreen> {
           e.categorie ?? '',
           style: const TextStyle(color: Colors.white70),
         ),
-        trailing: showTeamChat
-            ? IconButton(
+        trailing: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (showTeamChat)
+              IconButton(
                 icon: const Icon(Icons.chat, color: AppTheme.masYellow),
-                onPressed: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChatScreen(teamId: e.id!, teamName: e.nom),
-                  ),
-                ),
-              )
-            : null,
+                onPressed: e.id == null
+                    ? null
+                    : () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ChatScreen(teamId: e.id!, teamName: e.nom),
+                          ),
+                        ),
+              ),
+            if (isAdmin) ...[
+              IconButton(
+                icon: const Icon(Icons.edit, color: AppTheme.masYellow),
+                onPressed: e.id == null ? null : () => _showEdit(e),
+              ),
+              IconButton(
+                icon: const Icon(Icons.delete, color: Colors.redAccent),
+                onPressed: e.id == null ? null : () => _delete(e),
+              ),
+            ],
+          ],
+        ),
       ),
     );
   }
@@ -155,51 +172,103 @@ class _EquipesScreenState extends State<EquipesScreen> {
     );
   }
 
-  void _showEdit(Equipe e){
+  void _showEdit(Equipe e) {
+    if (e.id == null) return;
+
     final form = GlobalKey<FormState>();
     String nom = e.nom;
     String cat = e.categorie ?? '';
 
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Éditer équipe'),
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Modifier équipe'),
         content: Form(
           key: form,
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(initialValue: nom, decoration: const InputDecoration(labelText: 'Nom'), onSaved: (v) => nom = v ?? ''),
-              TextFormField(initialValue: cat, decoration: const InputDecoration(labelText: 'Catégorie'), onSaved: (v) => cat = v ?? ''),
+              TextFormField(
+                initialValue: nom,
+                decoration: const InputDecoration(labelText: 'Nom'),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'Nom requis' : null,
+                onSaved: (v) => nom = v?.trim() ?? '',
+              ),
+              TextFormField(
+                initialValue: cat,
+                decoration: const InputDecoration(labelText: 'Catégorie'),
+                onSaved: (v) => cat = v?.trim() ?? '',
+              ),
             ],
           ),
         ),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Annuler')),
-          ElevatedButton(onPressed: () {
-            form.currentState?.save();
-            setState(() => equipes[equipes.indexWhere((x) => x.id == e.id)] = Equipe(id: e.id, nom: nom, categorie: cat));
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Équipe mise à jour (local)')));
-          }, child: const Text('Enregistrer')),
+          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Annuler')),
+          ElevatedButton(
+            onPressed: () async {
+              if (!(form.currentState?.validate() ?? false)) return;
+              form.currentState?.save();
+
+              try {
+                final body = <String, dynamic>{
+                  'nom': nom,
+                  'categorie': cat.isEmpty ? null : cat,
+                  'active': e.active,
+                };
+                if (e.description != null) body['description'] = e.description;
+                if (e.encadrantId != null) body['encadrant'] = {'id': e.encadrantId};
+
+                await ApiService.updateEquipe(e.id!, body);
+                if (!mounted) return;
+                Navigator.pop(dialogContext);
+                await _load();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Équipe mise à jour')),
+                );
+              } catch (err) {
+                if (!mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erreur: $err'), backgroundColor: Colors.red),
+                );
+              }
+            },
+            child: const Text('Enregistrer'),
+          ),
         ],
       ),
     );
   }
 
   void _delete(Equipe e) {
+    if (e.id == null) return;
+
     showDialog(
       context: context,
-      builder: (_) => AlertDialog(
-        title: const Text('Supprimer'),
-        content: const Text('Supprimer cette équipe ?'),
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Supprimer équipe'),
+        content: Text('Supprimer l\'équipe « ${e.nom} » ?'),
         actions: [
-          TextButton(onPressed: () => Navigator.pop(context), child: const Text('Annuler')),
-          TextButton(onPressed: () {
-            setState(() => equipes.removeWhere((x) => x.id == e.id));
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Équipe supprimée (local)')));
-          }, child: const Text('Supprimer')),
+          TextButton(onPressed: () => Navigator.pop(dialogContext), child: const Text('Annuler')),
+          TextButton(
+            onPressed: () async {
+              try {
+                await ApiService.deleteEquipe(e.id!);
+                if (!mounted) return;
+                Navigator.pop(dialogContext);
+                await _load();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Équipe supprimée')),
+                );
+              } catch (err) {
+                if (!mounted) return;
+                Navigator.pop(dialogContext);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erreur: $err'), backgroundColor: Colors.red),
+                );
+              }
+            },
+            child: const Text('Supprimer', style: TextStyle(color: Colors.redAccent)),
+          ),
         ],
       ),
     );

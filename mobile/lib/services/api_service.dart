@@ -284,6 +284,31 @@ class ApiService {
     }
   }
 
+  static Future<Equipe> updateEquipe(int id, Map<String, dynamic> equipeData) async {
+    final response = await http.put(
+      Uri.parse('${ApiConfig.adminEquipes}/$id'),
+      headers: await getHeaders(),
+      body: jsonEncode(equipeData),
+    );
+
+    if (response.statusCode == 200) {
+      return Equipe.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Erreur de modification de l\'équipe');
+    }
+  }
+
+  static Future<void> deleteEquipe(int id) async {
+    final response = await http.delete(
+      Uri.parse('${ApiConfig.adminEquipes}/$id'),
+      headers: await getHeaders(),
+    );
+
+    if (response.statusCode != 200 && response.statusCode != 204) {
+      throw Exception('Erreur de suppression de l\'équipe');
+    }
+  }
+
   // ==================== ENTRAÎNEMENTS ====================
   
   static Future<List<Entrainement>> getAllEntrainements(String role, {int? encadrantId}) async {
