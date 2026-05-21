@@ -8,6 +8,7 @@ import '../../widgets/loading_widget.dart';
 import '../../widgets/themed_app_bar.dart';
 import '../../widgets/empty_state.dart';
 import 'joueur_detail_screen.dart';
+import '../users/users_screen.dart';
 
 class JoueursScreen extends StatefulWidget {
   const JoueursScreen({super.key});
@@ -44,8 +45,48 @@ class _JoueursScreenState extends State<JoueursScreen> {
     }
   }
 
+  Future<void> _deleteJoueur(User user) async {
+    if (user.id == null) return;
+
+    final ok = await showDialog<bool>(
+      context: context,
+      builder: (dialogContext) => AlertDialog(
+        title: const Text('Supprimer joueur'),
+        content: Text(
+          'Supprimer le joueur ${user.prenom} ${user.nom} ?',
+          style: const TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(onPressed: () => Navigator.pop(dialogContext, false), child: const Text('Annuler')),
+          TextButton(
+            onPressed: () => Navigator.pop(dialogContext, true),
+            child: const Text('Supprimer', style: TextStyle(color: Colors.redAccent)),
+          ),
+        ],
+      ),
+    );
+
+    if (ok != true || !mounted) return;
+
+    try {
+      await ApiService.deleteUser(user.id!);
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Joueur supprimé')),
+      );
+      await _load();
+    } catch (err) {
+      if (!mounted) return;
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Erreur: $err'), backgroundColor: Colors.red),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isAdmin = context.watch<AuthProvider>().user?.role == 'ADMIN';
+
     return Scaffold(
       appBar: const ThemedAppBar(titleText: 'Joueurs'),
       body: Container(
@@ -118,7 +159,32 @@ class _JoueursScreenState extends State<JoueursScreen> {
                                               : item.poste,
                                           style: const TextStyle(color: Colors.white70),
                                         ),
-                                        trailing: const Icon(Icons.chevron_right, color: Colors.white54),
+                                        trailing: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            if (isAdmin && item is User) ...[
+                                              IconButton(
+                                                icon: const Icon(Icons.edit, color: AppTheme.masYellow),
+                                                onPressed: item.id == null
+                                                    ? null
+                                                    : () async {
+                                                        final changed = await Navigator.push<bool>(
+                                                          context,
+                                                          MaterialPageRoute(
+                                                            builder: (_) => UserEditScreen(userId: item.id!),
+                                                          ),
+                                                        );
+                                                        if (changed == true) _load();
+                                                      },
+                                              ),
+                                              IconButton(
+                                                icon: const Icon(Icons.delete, color: Colors.redAccent),
+                                                onPressed: item.id == null ? null : () => _deleteJoueur(item),
+                                              ),
+                                            ],
+                                            const Icon(Icons.chevron_right, color: Colors.white54),
+                                          ],
+                                        ),
                                         onTap: () {
                                           Navigator.push(
                                             context,
