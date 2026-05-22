@@ -284,6 +284,24 @@ class ApiService {
     }
   }
 
+  static Future<Equipe> createEquipe(Map<String, dynamic> equipeData, String role) async {
+    final url = role == 'ENCADRANT'
+        ? ApiConfig.encadrantEquipes
+        : ApiConfig.adminEquipes;
+
+    final response = await http.post(
+      Uri.parse(url),
+      headers: await getHeaders(),
+      body: jsonEncode(equipeData),
+    );
+
+    if (response.statusCode == 200) {
+      return Equipe.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Erreur de création de l\'équipe (${response.statusCode})');
+    }
+  }
+
   static Future<Equipe> updateEquipe(int id, Map<String, dynamic> equipeData) async {
     final response = await http.put(
       Uri.parse('${ApiConfig.adminEquipes}/$id'),

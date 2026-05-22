@@ -154,19 +154,52 @@ class _EquipesScreenState extends State<EquipesScreen> {
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              TextFormField(decoration: const InputDecoration(labelText: 'Nom'), onSaved: (v) => nom = v ?? ''),
-              TextFormField(decoration: const InputDecoration(labelText: 'Catégorie'), onSaved: (v) => cat = v ?? ''),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Nom'),
+                validator: (v) => (v == null || v.trim().isEmpty) ? 'Nom requis' : null,
+                onSaved: (v) => nom = v ?? '',
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Catégorie'),
+                onSaved: (v) => cat = v ?? '',
+              ),
             ],
           ),
         ),
         actions: [
           TextButton(onPressed: () => Navigator.pop(context), child: const Text('Annuler')),
-          ElevatedButton(onPressed: () {
-            form.currentState?.save();
-            setState(() => equipes.insert(0, Equipe(id: DateTime.now().millisecondsSinceEpoch, nom: nom, categorie: cat)));
-            Navigator.pop(context);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Équipe créée (local)')));
-          }, child: const Text('Créer')),
+          ElevatedButton(
+            onPressed: () async {
+              if (!(form.currentState?.validate() ?? false)) return;
+              form.currentState?.save();
+              if (nom.trim().isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Le nom est obligatoire')),
+                );
+                return;
+              }
+
+              try {
+                await ApiService.createEquipe({
+                  'nom': nom.trim(),
+                  'categorie': cat.trim().isEmpty ? null : cat.trim(),
+                  'active': true,
+                }, userRole!);
+                if (!mounted) return;
+                Navigator.pop(context);
+                await _load();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Équipe créée')),
+                );
+              } catch (err) {
+                if (!mounted) return;
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text('Erreur: $err'), backgroundColor: Colors.red),
+                );
+              }
+            },
+            child: const Text('Créer'),
+          ),
         ],
       ),
     );
