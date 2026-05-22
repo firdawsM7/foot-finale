@@ -615,10 +615,10 @@ class _AddUserScreenState extends State<AddUserScreen> {
                 ? const Center(child: CircularProgressIndicator(color: AppTheme.masYellow))
                 : DropdownButtonFormField<Equipe>(
                     decoration: AppTheme.inputDecoration('Équipe', Icons.group),
-                    initialValue: _selectedEquipe,
+                    value: _selectedEquipe,
                     items: _equipes.map((equipe) {
                       return DropdownMenuItem<Equipe>(
-                        initialValue: equipe,
+                        value: equipe,
                         child: Text(equipe.nom),
                       );
                     }).toList(),
@@ -631,12 +631,12 @@ class _AddUserScreenState extends State<AddUserScreen> {
             // Poste Dropdown
             DropdownButtonFormField<String>(
               decoration: AppTheme.inputDecoration('Poste', Icons.sports_soccer),
-              initialValue: _selectedPoste,
+              value: _selectedPoste,
               items: const [
-                DropdownMenuItem(initialValue: 'Gardien', child: Text('Gardien')),
-                DropdownMenuItem(initialValue: 'Défenseur', child: Text('Défenseur')),
-                DropdownMenuItem(initialValue: 'Milieu', child: Text('Milieu')),
-                DropdownMenuItem(initialValue: 'Attaquant', child: Text('Attaquant')),
+                DropdownMenuItem(value: 'Gardien', child: Text('Gardien')),
+                DropdownMenuItem(value: 'Défenseur', child: Text('Défenseur')),
+                DropdownMenuItem(value: 'Milieu', child: Text('Milieu')),
+                DropdownMenuItem(value: 'Attaquant', child: Text('Attaquant')),
               ],
               onChanged: (value) => setState(() => _selectedPoste = value),
               validator: (value) =>

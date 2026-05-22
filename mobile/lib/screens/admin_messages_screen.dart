@@ -303,7 +303,7 @@ class _AdminMessagesScreenState extends State<AdminMessagesScreen> with SingleTi
                 const Text("Type de diffusion :", style: TextStyle(color: Colors.white70, fontSize: 13)),
                 const SizedBox(height: 8),
                 DropdownButtonFormField<String>(
-                  initialValue: currentType,
+                  value: currentType,
                   dropdownColor: const Color(0xFF1E1E1E),
                   style: const TextStyle(color: Colors.white, fontSize: 14),
                   decoration: InputDecoration(
@@ -313,10 +313,10 @@ class _AdminMessagesScreenState extends State<AdminMessagesScreen> with SingleTi
                     contentPadding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                   ),
                   items: const [
-                    DropdownMenuItem(initialValue: "BROADCAST", child: Text("📢 Broadcast (Tous les membres)")),
-                    DropdownMenuItem(initialValue: "ROLE_ENCADRANT", child: Text("👥 Groupe : Encadrants")),
-                    DropdownMenuItem(initialValue: "ROLE_JOUEUR", child: Text("👥 Groupe : Joueurs")),
-                    DropdownMenuItem(initialValue: "ROLE_ADHERENT", child: Text("👥 Groupe : Adhérents")),
+                    DropdownMenuItem(value: "BROADCAST", child: Text("📢 Broadcast (Tous les membres)")),
+                    DropdownMenuItem(value: "ROLE_ENCADRANT", child: Text("👥 Groupe : Encadrants")),
+                    DropdownMenuItem(value: "ROLE_JOUEUR", child: Text("👥 Groupe : Joueurs")),
+                    DropdownMenuItem(value: "ROLE_ADHERENT", child: Text("👥 Groupe : Adhérents")),
                   ],
                   onChanged: (val) {
                     if (val != null) {

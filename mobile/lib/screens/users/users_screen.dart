@@ -305,11 +305,11 @@ class _UsersScreenState extends State<UsersScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                TextFormField(initialValue: nom, decoration: const InputDecoration(labelText: 'Nom'), onSaved: (v) => nom = v ?? '', style: const TextStyle(color: Colors.white)),
+                TextFormField(value: nom, decoration: const InputDecoration(labelText: 'Nom'), onSaved: (v) => nom = v ?? '', style: const TextStyle(color: Colors.white)),
                 const SizedBox(height: 12),
-                TextFormField(initialValue: prenom, decoration: const InputDecoration(labelText: 'Prénom'), onSaved: (v) => prenom = v ?? '', style: const TextStyle(color: Colors.white)),
+                TextFormField(value: prenom, decoration: const InputDecoration(labelText: 'Prénom'), onSaved: (v) => prenom = v ?? '', style: const TextStyle(color: Colors.white)),
                 const SizedBox(height: 12),
-                TextFormField(initialValue: email, decoration: const InputDecoration(labelText: 'Email'), onSaved: (v) => email = v ?? '', style: const TextStyle(color: Colors.white)),
+                TextFormField(value: email, decoration: const InputDecoration(labelText: 'Email'), onSaved: (v) => email = v ?? '', style: const TextStyle(color: Colors.white)),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
                   value: role,

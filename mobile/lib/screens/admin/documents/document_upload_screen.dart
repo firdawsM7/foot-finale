@@ -151,10 +151,10 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
   Widget _buildUserSelector() {
     if (_isLoadingUsers) return const CircularProgressIndicator();
     return DropdownButtonFormField<User>(
-      initialValue: _selectedUser,
+      value: _selectedUser,
       decoration: const InputDecoration(labelText: 'Sélectionner le joueur'),
       items: _users.map((u) => DropdownMenuItem(
-        initialValue: u,
+        value: u,
         child: Text('${u.nom} ${u.prenom}'),
       )).toList(),
       onChanged: (value) => setState(() => _selectedUser = value),
@@ -164,9 +164,9 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
 
   Widget _buildTypeSelector() {
     return DropdownButtonFormField<String>(
-      initialValue: _selectedType,
+      value: _selectedType,
       decoration: const InputDecoration(labelText: 'Type de document'),
-      items: _types.map((t) => DropdownMenuItem(initialValue: t, child: Text(t.replaceAll('_', ' ')))).toList(),
+      items: _types.map((t) => DropdownMenuItem(value: t, child: Text(t.replaceAll('_', ' ')))).toList(),
       onChanged: (value) => setState(() => _selectedType = value),
       validator: (v) => v == null ? 'Requis' : null,
     );

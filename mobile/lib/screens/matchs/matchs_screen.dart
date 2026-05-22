@@ -437,11 +437,11 @@ class _MatchFormDialogState extends State<MatchFormDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 DropdownButtonFormField<int>(
-                  initialValue: _selectedEquipeId,
+                  value: _selectedEquipeId,
                   decoration: const InputDecoration(labelText: 'Équipe'),
                   items: widget.equipes.map((equipe) {
                     return DropdownMenuItem(
-                      initialValue: equipe.id,
+                      value: equipe.id,
                       child: Text(equipe.nom),
                     );
                   }).toList(),
@@ -482,10 +482,10 @@ class _MatchFormDialogState extends State<MatchFormDialog> {
                   validator: (value) => value?.isEmpty ?? true ? 'Requis' : null,
                 ),
                 DropdownButtonFormField<String>(
-                  initialValue: _selectedType,
+                  value: _selectedType,
                   decoration: const InputDecoration(labelText: 'Type'),
                   items: ['CHAMPIONNAT', 'COUPE', 'AMICAL', 'TOURNOI'].map((type) {
-                    return DropdownMenuItem(initialValue: type, child: Text(type));
+                    return DropdownMenuItem(value: type, child: Text(type));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
@@ -494,10 +494,10 @@ class _MatchFormDialogState extends State<MatchFormDialog> {
                   },
                 ),
                 DropdownButtonFormField<String>(
-                  initialValue: _selectedStatut,
+                  value: _selectedStatut,
                   decoration: const InputDecoration(labelText: 'Statut'),
                   items: ['PLANIFIE', 'EN_COURS', 'TERMINE', 'ANNULE'].map((statut) {
-                    return DropdownMenuItem(initialValue: statut, child: Text(statut));
+                    return DropdownMenuItem(value: statut, child: Text(statut));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
