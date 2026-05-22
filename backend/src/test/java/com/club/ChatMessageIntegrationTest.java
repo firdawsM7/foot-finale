@@ -23,7 +23,7 @@ class ChatMessageIntegrationTest {
 
     @Test
     void savePrivateMessage_persistsDeletedFalse() {
-        User admin = userRepository.findByEmail("admin@gmail.com").orElseThrow();
+        User admin = userRepository.findByEmail("admin@club.com").orElseThrow();
         User recipient = userRepository.findById(2L).orElseThrow();
 
         ChatMessage message = new ChatMessage();
@@ -43,7 +43,7 @@ class ChatMessageIntegrationTest {
 
     @Test
     void saveBroadcastMessage_persistsDeletedFalse() {
-        User admin = userRepository.findByEmail("admin@gmail.com").orElseThrow();
+        User admin = userRepository.findByEmail("admin@club.com").orElseThrow();
 
         ChatMessage message = new ChatMessage();
         message.setContent("JUnit broadcast test");
@@ -61,7 +61,7 @@ class ChatMessageIntegrationTest {
 
     @Test
     void saveGroupMessage_persistsDeletedFalse() {
-        User admin = userRepository.findByEmail("admin@gmail.com").orElseThrow();
+        User admin = userRepository.findByEmail("admin@club.com").orElseThrow();
 
         ChatMessage message = new ChatMessage();
         message.setContent("JUnit group test");

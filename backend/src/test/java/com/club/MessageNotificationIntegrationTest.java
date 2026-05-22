@@ -23,7 +23,7 @@ class MessageNotificationIntegrationTest {
 
     @Test
     void saveNotification_usesIsReadColumn() {
-        User user = userRepository.findByEmail("admin@gmail.com").orElseThrow();
+        User user = userRepository.findByEmail("admin@club.com").orElseThrow();
 
         MessageNotification notification = new MessageNotification();
         notification.setUser(user);
