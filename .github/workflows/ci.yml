@@ -72,15 +72,15 @@ jobs:
       - name: 🐦 Setup Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.19.0'
+          flutter-version: '3.24.0'
           channel: 'stable'
 
       - name: 📦 Get Dependencies
         working-directory: ./mobile
-        run: |
-          flutter config --no-analytics
-          flutter pub get
+        run: flutter pub get
+        env:
+          FLUTTER_TARGET_PLATFORM: web
 
       - name: 🌐 Build Web
         working-directory: ./mobile
-        run: flutter build web --release --no-pub
+        run: flutter build web --release
