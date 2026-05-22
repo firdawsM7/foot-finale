@@ -113,7 +113,7 @@ class AppTheme {
         iconTheme: IconThemeData(color: isDark ? masYellow : masBlack),
       ),
 
-      cardTheme: CardThemeData(
+      cardTheme: CardTheme(
         color: isDark ? Colors.white.withOpacity(0.05) : Colors.black.withOpacity(0.05),
         elevation: 0,
         shape: RoundedRectangleBorder(
@@ -164,7 +164,7 @@ class AppTheme {
         elevation: 8,
       ),
 
-      dialogTheme: DialogThemeData(
+      dialogTheme: DialogTheme(
         backgroundColor: surfaceColor,
         elevation: 8,
         shape: RoundedRectangleBorder(

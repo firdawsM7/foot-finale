@@ -50,8 +50,8 @@ class _CreateAlertScreenState extends State<CreateAlertScreen> {
                       initialValue: _type,
                       decoration: const InputDecoration(labelText: 'Type'),
                       items: const [
-                        DropdownMenuItem(value: 'INJURY', child: Text('Blessure')),
-                        DropdownMenuItem(value: 'SUSPENSION', child: Text('Suspension')),
+                        DropdownMenuItem(initialValue: 'INJURY', child: Text('Blessure')),
+                        DropdownMenuItem(initialValue: 'SUSPENSION', child: Text('Suspension')),
                       ],
                       onChanged: (value) => setState(() => _type = value!),
                     ),
@@ -60,9 +60,9 @@ class _CreateAlertScreenState extends State<CreateAlertScreen> {
                       initialValue: _severity,
                       decoration: const InputDecoration(labelText: 'Gravité'),
                       items: const [
-                        DropdownMenuItem(value: 'LOW', child: Text('Faible')),
-                        DropdownMenuItem(value: 'MEDIUM', child: Text('Moyenne')),
-                        DropdownMenuItem(value: 'HIGH', child: Text('Élevée')),
+                        DropdownMenuItem(initialValue: 'LOW', child: Text('Faible')),
+                        DropdownMenuItem(initialValue: 'MEDIUM', child: Text('Moyenne')),
+                        DropdownMenuItem(initialValue: 'HIGH', child: Text('Élevée')),
                       ],
                       onChanged: (value) => setState(() => _severity = value!),
                     ),

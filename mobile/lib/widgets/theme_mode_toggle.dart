@@ -46,7 +46,6 @@ class ThemeModeSwitchTile extends StatelessWidget {
       title: Text(isDark ? 'Mode sombre' : 'Mode clair'),
       subtitle: const Text('Apparence de l\'application'),
       value: isDark,
-      activeThumbColor: AppTheme.masYellow,
       onChanged: themeProvider.toggleTheme,
     );
   }

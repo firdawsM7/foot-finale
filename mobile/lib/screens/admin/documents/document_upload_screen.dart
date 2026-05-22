@@ -154,7 +154,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
       initialValue: _selectedUser,
       decoration: const InputDecoration(labelText: 'Sélectionner le joueur'),
       items: _users.map((u) => DropdownMenuItem(
-        value: u,
+        initialValue: u,
         child: Text('${u.nom} ${u.prenom}'),
       )).toList(),
       onChanged: (value) => setState(() => _selectedUser = value),
@@ -166,7 +166,7 @@ class _DocumentUploadScreenState extends State<DocumentUploadScreen> {
     return DropdownButtonFormField<String>(
       initialValue: _selectedType,
       decoration: const InputDecoration(labelText: 'Type de document'),
-      items: _types.map((t) => DropdownMenuItem(value: t, child: Text(t.replaceAll('_', ' ')))).toList(),
+      items: _types.map((t) => DropdownMenuItem(initialValue: t, child: Text(t.replaceAll('_', ' ')))).toList(),
       onChanged: (value) => setState(() => _selectedType = value),
       validator: (v) => v == null ? 'Requis' : null,
     );

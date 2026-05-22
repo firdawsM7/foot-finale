@@ -114,8 +114,8 @@ class _DocumentsListScreenState extends State<DocumentsListScreen> {
                   initialValue: _selectedType,
                   decoration: const InputDecoration(labelText: 'Type de document'),
                   items: [
-                    const DropdownMenuItem(value: null, child: Text('Tous les types')),
-                    ..._types.map((t) => DropdownMenuItem(value: t, child: Text(t))),
+                    const DropdownMenuItem(initialValue: null, child: Text('Tous les types')),
+                    ..._types.map((t) => DropdownMenuItem(initialValue: t, child: Text(t))),
                   ],
                   onChanged: (value) {
                     setState(() => _selectedType = value);
@@ -128,7 +128,7 @@ class _DocumentsListScreenState extends State<DocumentsListScreen> {
                 children: [
                   const Text('Expirant', style: TextStyle(fontSize: 12)),
                   Switch(
-                    value: _onlyExpiring,
+                    initialValue: _onlyExpiring,
                     onChanged: (value) {
                       setState(() => _onlyExpiring = value);
                       _refresh();

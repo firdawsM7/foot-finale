@@ -246,7 +246,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
           ),
           const SizedBox(height: 12),
           DropdownButtonFormField<User>(
-            value: _selectedUser,
+            initialValue: _selectedUser,
             decoration: const InputDecoration(
               hintText: 'Sélectionner un utilisateur',
               filled: true,
@@ -256,7 +256,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
             dropdownColor: Colors.grey[900],
             items: widget.users.map((user) {
               return DropdownMenuItem<User>(
-                value: user,
+                initialValue: user,
                 child: Text('${user.nom} ${user.prenom}', style: const TextStyle(color: Colors.white)),
               );
             }).toList(),
@@ -328,7 +328,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
 
   Widget _buildSaisonSelector() {
     return DropdownButtonFormField<String>(
-      value: _selectedSaison,
+      initialValue: _selectedSaison,
       decoration: const InputDecoration(
         labelText: 'Saison *',
         filled: true,
@@ -338,7 +338,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
       dropdownColor: Colors.grey[900],
       items: _saisons.map((saison) {
         return DropdownMenuItem<String>(
-          value: saison,
+          initialValue: saison,
           child: Text(saison, style: const TextStyle(color: Colors.white)),
         );
       }).toList(),
@@ -348,7 +348,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
 
   Widget _buildModePaiementSelector() {
     return DropdownButtonFormField<String>(
-      value: _selectedModePaiement,
+      initialValue: _selectedModePaiement,
       decoration: const InputDecoration(
         labelText: 'Mode de paiement *',
         filled: true,
@@ -358,7 +358,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
       dropdownColor: Colors.grey[900],
       items: _modePaiementLabels.entries.map((entry) {
         return DropdownMenuItem<String>(
-          value: entry.key,
+          initialValue: entry.key,
           child: Text(entry.value, style: const TextStyle(color: Colors.white)),
         );
       }).toList(),
@@ -368,7 +368,7 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
 
   Widget _buildStatutSelector() {
     return DropdownButtonFormField<String>(
-      value: _selectedStatut,
+      initialValue: _selectedStatut,
       decoration: const InputDecoration(
         labelText: 'Statut *',
         filled: true,
@@ -378,11 +378,11 @@ class _AddCotisationScreenState extends State<AddCotisationScreen> {
       dropdownColor: Colors.grey[900],
       items: [
         const DropdownMenuItem<String>(
-          value: 'EN_ATTENTE',
+          initialValue: 'EN_ATTENTE',
           child: Text('En attente', style: TextStyle(color: Colors.white)),
         ),
         const DropdownMenuItem<String>(
-          value: 'VALIDEE',
+          initialValue: 'VALIDEE',
           child: Text('Validée', style: TextStyle(color: Colors.white)),
         ),
       ],

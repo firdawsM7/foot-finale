@@ -501,11 +501,11 @@ class _EntrainementFormDialogState extends State<EntrainementFormDialog> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 DropdownButtonFormField<int>(
-                  value: _selectedEquipeId,
+                  initialValue: _selectedEquipeId,
                   decoration: const InputDecoration(labelText: 'Équipe'),
                   items: widget.equipes.map((equipe) {
                     return DropdownMenuItem(
-                      value: equipe.id,
+                      initialValue: equipe.id,
                       child: Text(equipe.nom),
                     );
                   }).toList(),
@@ -557,16 +557,16 @@ class _EntrainementFormDialogState extends State<EntrainementFormDialog> {
                 ),
                 if (widget.encadrants.isNotEmpty)
                   DropdownButtonFormField<int>(
-                    value: _selectedEncadrantId,
+                    initialValue: _selectedEncadrantId,
                     decoration: const InputDecoration(labelText: 'Encadrant'),
                     items: [
                       const DropdownMenuItem<int>(
-                        value: null,
+                        initialValue: null,
                         child: Text('Aucun'),
                       ),
                       ...widget.encadrants.map((encadrant) {
                         return DropdownMenuItem(
-                          value: encadrant.id,
+                          initialValue: encadrant.id,
                           child: Text('${encadrant.prenom} ${encadrant.nom}'),
                         );
                       }).toList(),
@@ -578,10 +578,10 @@ class _EntrainementFormDialogState extends State<EntrainementFormDialog> {
                     },
                   ),
                 DropdownButtonFormField<String>(
-                  value: _selectedStatut,
+                  initialValue: _selectedStatut,
                   decoration: const InputDecoration(labelText: 'Statut'),
                   items: ['PLANIFIE', 'EN_COURS', 'TERMINE', 'ANNULE'].map((statut) {
-                    return DropdownMenuItem(value: statut, child: Text(statut));
+                    return DropdownMenuItem(initialValue: statut, child: Text(statut));
                   }).toList(),
                   onChanged: (value) {
                     setState(() {
