@@ -41,13 +41,13 @@ jobs:
         working-directory: ./backend
         run: mvn -q -B clean package -DskipTests
 
-      - name: ✅ Verify Build
+      - name: ✅ Run Tests
         working-directory: ./backend
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/clubdb
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: root
-        run: mvn -q -B clean package -DskipTests
+        run: mvn -q -B test
 
   docker:
     name: 🐳 Docker - Build Image
@@ -81,4 +81,4 @@ jobs:
 
       - name: 🌐 Build Web
         working-directory: ./mobile
-        run: flutter build web --release
+        run: flutter build web --release --no-pub
