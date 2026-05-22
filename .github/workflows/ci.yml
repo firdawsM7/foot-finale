@@ -47,6 +47,8 @@ jobs:
           SPRING_DATASOURCE_URL: jdbc:mysql://localhost:3306/clubdb
           SPRING_DATASOURCE_USERNAME: root
           SPRING_DATASOURCE_PASSWORD: root
+          APP_ADMIN_EMAIL: admin@gmail.com
+          APP_ADMIN_PASSWORD: password
         run: mvn -q -B test
 
   docker:
