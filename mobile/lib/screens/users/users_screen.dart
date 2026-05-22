@@ -240,10 +240,10 @@ class _UsersScreenState extends State<UsersScreen> {
                 TextFormField(decoration: const InputDecoration(labelText: 'Email'), onSaved: (v) => email = v ?? '', style: const TextStyle(color: Colors.white)),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: role, 
+                  value: role,
                   dropdownColor: AppTheme.masGray,
                   style: const TextStyle(color: Colors.white),
-                  items: ['ADMIN','ENCADRANT','ADHERENT','JOUEUR'].map((r)=>DropdownMenuItem(initialValue: r,child: Text(r))).toList(), 
+                  items: ['ADMIN','ENCADRANT','ADHERENT','JOUEUR'].map((r)=>DropdownMenuItem(value: r,child: Text(r))).toList(), 
                   onChanged: (v){role=v!;}
                 ),
               ],
@@ -312,10 +312,10 @@ class _UsersScreenState extends State<UsersScreen> {
                 TextFormField(initialValue: email, decoration: const InputDecoration(labelText: 'Email'), onSaved: (v) => email = v ?? '', style: const TextStyle(color: Colors.white)),
                 const SizedBox(height: 12),
                 DropdownButtonFormField<String>(
-                  initialValue: role, 
+                  value: role,
                   dropdownColor: AppTheme.masGray,
                   style: const TextStyle(color: Colors.white),
-                  items: ['ADMIN','ENCADRANT','ADHERENT','JOUEUR'].map((r)=>DropdownMenuItem(initialValue: r,child: Text(r))).toList(), 
+                  items: ['ADMIN','ENCADRANT','ADHERENT','JOUEUR'].map((r)=>DropdownMenuItem(value: r,child: Text(r))).toList(), 
                   onChanged: (v){role=v!;}
                 ),
               ],
@@ -446,10 +446,10 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         title: 'Informations',
                         child: Column(
                           children: [
-                            _UserRowItem(label: 'Email', initialValue: user.email),
-                            _UserRowItem(label: 'Téléphone', initialValue: user.phone),
-                            _UserRowItem(label: 'Adresse', initialValue: user.address),
-                            _UserRowItem(label: 'Date de naissance', initialValue: _formatDate(user.dateOfBirth)),
+                            _UserRowItem(label: 'Email', value: user.email),
+                            _UserRowItem(label: 'Téléphone', value: user.phone),
+                            _UserRowItem(label: 'Adresse', value: user.address),
+                            _UserRowItem(label: 'Date de naissance', value: _formatDate(user.dateOfBirth)),
                           ],
                         ),
                       ),
@@ -458,11 +458,11 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                         title: 'Statut',
                         child: Column(
                           children: [
-                            _UserRowItem(label: 'Rôle', initialValue: user.role.toString().split('.').last),
-                            _UserRowItem(label: 'Compte', initialValue: user.accountStatus.toString().split('.').last),
-                            _UserRowItem(label: 'Inscription', initialValue: user.registrationStatus.toString().split('.').last),
-                            _UserRowItem(label: 'Actif', initialValue: user.actif ? 'Oui' : 'Non'),
-                            _UserRowItem(label: 'Créé le', initialValue: _formatDateTime(user.dateInscription)),
+                            _UserRowItem(label: 'Rôle', value: user.role.toString().split('.').last),
+                            _UserRowItem(label: 'Compte', value: user.accountStatus.toString().split('.').last),
+                            _UserRowItem(label: 'Inscription', value: user.registrationStatus.toString().split('.').last),
+                            _UserRowItem(label: 'Actif', value: user.actif ? 'Oui' : 'Non'),
+                            _UserRowItem(label: 'Créé le', value: _formatDateTime(user.dateInscription)),
                           ],
                         ),
                       ),
@@ -478,7 +478,7 @@ class _UserDetailScreenState extends State<UserDetailScreen> {
                             ),
                             const SizedBox(height: 12),
                             LinearProgressIndicator(
-                              initialValue: ((dossier['completionPercentage'] ?? 0) as num).toDouble() / 100.0,
+                              value: ((dossier['completionPercentage'] ?? 0) as num).toDouble() / 100.0,
                               minHeight: 10,
                               backgroundColor: Colors.white.withOpacity(0.12),
                               valueColor: const AlwaysStoppedAnimation<Color>(AppTheme.masYellow),
@@ -751,10 +751,10 @@ class _UserEditScreenState extends State<UserEditScreen> {
                               ),
                               const SizedBox(height: 12),
                               DropdownButtonFormField<UserRole>(
-                                initialValue: _role,
+                                value: _role,
                                 items: UserRole.values
                                     .map((r) => DropdownMenuItem(
-                                          initialValue: r,
+                                          value: r,
                                           child: Text(r.toString().split('.').last),
                                         ))
                                     .toList(),

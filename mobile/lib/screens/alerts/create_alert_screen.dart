@@ -47,22 +47,22 @@ class _CreateAlertScreenState extends State<CreateAlertScreen> {
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
                     DropdownButtonFormField<String>(
-                      initialValue: _type,
+                      value: _type,
                       decoration: const InputDecoration(labelText: 'Type'),
                       items: const [
-                        DropdownMenuItem(initialValue: 'INJURY', child: Text('Blessure')),
-                        DropdownMenuItem(initialValue: 'SUSPENSION', child: Text('Suspension')),
+                        DropdownMenuItem(value: 'INJURY', child: Text('Blessure')),
+                        DropdownMenuItem(value: 'SUSPENSION', child: Text('Suspension')),
                       ],
                       onChanged: (value) => setState(() => _type = value!),
                     ),
                     const SizedBox(height: 16),
                     DropdownButtonFormField<String>(
-                      initialValue: _severity,
+                      value: _severity,
                       decoration: const InputDecoration(labelText: 'Gravité'),
                       items: const [
-                        DropdownMenuItem(initialValue: 'LOW', child: Text('Faible')),
-                        DropdownMenuItem(initialValue: 'MEDIUM', child: Text('Moyenne')),
-                        DropdownMenuItem(initialValue: 'HIGH', child: Text('Élevée')),
+                        DropdownMenuItem(value: 'LOW', child: Text('Faible')),
+                        DropdownMenuItem(value: 'MEDIUM', child: Text('Moyenne')),
+                        DropdownMenuItem(value: 'HIGH', child: Text('Élevée')),
                       ],
                       onChanged: (value) => setState(() => _severity = value!),
                     ),
