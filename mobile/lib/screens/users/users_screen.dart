@@ -1,5 +1,3 @@
-import 'package:club_mobile/screens/users/user_detail_screen.dart';
-import 'package:club_mobile/screens/users/user_edit_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../../core/theme/app_theme.dart';
@@ -363,8 +361,6 @@ class _UsersScreenState extends State<UsersScreen> {
     );
   }
 }
-<<<<<<< HEAD
-=======
 
 // ============================================================================
 // Inline screens (avoid import resolution issues on some setups)
@@ -920,4 +916,3 @@ class _UserRowItem extends StatelessWidget {
   }
 }
 
->>>>>>> fc18598 (fix: add missing imports for UserEditScreen and UserDetailScreen)
